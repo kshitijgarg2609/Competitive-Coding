@@ -2,26 +2,26 @@ class Solution
 {
     public List<Integer> countSmaller(int[] nums)
     {
-      List<Integer> bin = Arrays.stream(nums).boxed().sorted().collect(Collectors.toList());
-      for(int i=0;i<nums.length;i++)
-      {
-        int indx=Collections.binarySearch(bin,nums[i]);
-        int e=bin.get(indx);
-        while(indx>0)
+        List<Integer> list = Arrays.stream(nums).sorted().boxed().collect(Collectors.toList());
+        for(int i=0;i<nums.length;i++)
         {
-          if(bin.get(indx)!=e)
-          {
-            break;
-          }
-          indx--;
+            int left=-1;
+            int right=list.size()-1;
+            while((right-left)>1)
+            {
+                int mid=(left+right+1)/2;
+                if(nums[i]<=list.get(mid))
+                {
+                    right=mid;
+                }
+                else
+                {
+                    left=mid;
+                }
+            }
+            nums[i]=right;
+            list.remove(right);
         }
-        if(bin.get(indx)!=e)
-        {
-          indx++;
-        }
-        bin.remove(indx);
-        nums[i]=indx;
-      }
-      return Arrays.stream(nums).boxed().collect(Collectors.toList());
+        return Arrays.stream(nums).boxed().collect(Collectors.toList());
     }
 }
