@@ -18,9 +18,11 @@ int main()
         cin>>val;
         vec.push_back(val);
     }
-    int start,end;
-    cin>>start>>end;
-    vec.erase(vec.begin()+start-1,vec.end()-end);
+    int q1,q2;
+    cin>>q1;
+    vec.erase(vec.begin()+q1-1);
+    cin>>q1>>q2;
+    vec.erase(vec.begin()+q1-1,vec.begin()+q2-1);
     cout<<vec.size()<<endl;
     for(auto x=vec.begin();x!=vec.end();x++)
     {
