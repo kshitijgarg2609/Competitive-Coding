@@ -2,26 +2,13 @@ class Solution
 {
     public List<String> summaryRanges(int[] nums)
     {
-        int start_num,stop_num;
-        boolean start_stop_flag=true;
-        List<String> list = new ArrayList<>();
-        for(int i=0;i<nums.length;i++)
+        List<String> list = new LinkedList<>();
+        int i=0;
+        while(i<nums.length)
         {
-            stop_num=start_num=nums[i++];
-            while(i<nums.length && (nums[i]-stop_num)==1)
-            {
-                stop_num=nums[i];
-                i++;
-            }
-            i--;
-            if(start_num!=stop_num)
-            {
-                list.add(String.format("%d->%d",start_num,stop_num));
-            }
-            else
-            {
-                list.add(String.format("%d",start_num));
-            }
+            int start=i;
+            for(i++;i<nums.length && nums[i]==nums[i-1]+1;i++);
+            list.add(((start+1==i)?String.format("%d",Integer.valueOf(nums[start])):String.format("%d->%d",Integer.valueOf(nums[start]),Integer.valueOf(nums[i-1]))));
         }
         return list;
     }
