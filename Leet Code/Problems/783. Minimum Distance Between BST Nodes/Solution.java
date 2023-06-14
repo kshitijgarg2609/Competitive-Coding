@@ -17,9 +17,10 @@ class Solution
 {
     public int minDiffInBST(TreeNode root)
     {
-        List<Integer> list = new ArrayList<>();
         Stack<TreeNode> stack = new Stack<>();
-        TreeNode ptr=root;
+        TreeNode ptr = root;
+        Integer a=null,b=null;
+        int diff = Integer.MAX_VALUE;
         while(ptr!=null || !stack.empty())
         {
             if(ptr!=null)
@@ -30,14 +31,18 @@ class Solution
             else
             {
                 ptr=stack.pop();
-                list.add(ptr.val);
+                if(a==null)
+                {
+                    a=ptr.val;
+                }
+                else
+                {
+                    b=ptr.val;
+                    diff=Integer.min(diff,b-a);
+                    a=b;
+                }
                 ptr=ptr.right;
             }
-        }
-        int diff=Integer.MAX_VALUE;
-        for(int i=1;i<list.size();i++)
-        {
-            diff=Integer.min(diff,list.get(i)-list.get(i-1));
         }
         return diff;
     }
