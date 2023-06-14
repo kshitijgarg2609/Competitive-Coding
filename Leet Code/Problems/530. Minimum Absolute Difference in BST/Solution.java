@@ -20,7 +20,7 @@ class Solution
         Stack<TreeNode> stack = new Stack<>();
         TreeNode ptr = root;
         Integer a=null,b=null;
-        int min_diff=Integer.MAX_VALUE;
+        int diff = Integer.MAX_VALUE;
         while(ptr!=null || !stack.empty())
         {
             if(ptr!=null)
@@ -38,12 +38,12 @@ class Solution
                 else
                 {
                     b=ptr.val;
-                    min_diff=Integer.min(min_diff,b.intValue()-a.intValue());
+                    diff=Integer.min(diff,b-a);
                     a=b;
                 }
                 ptr=ptr.right;
             }
         }
-        return min_diff;
+        return diff;
     }
 }
