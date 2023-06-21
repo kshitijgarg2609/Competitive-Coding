@@ -3,11 +3,11 @@ class Solution
     public List<String> stringMatching(String[] words)
     {
         List<String> list = new LinkedList<>();
-        String str[] = Arrays.stream(words).sorted(Comparator.comparing(String::length)).toArray(String[]::new);
+        Arrays.sort(words,Comparator.comparing(String::length));
         outer:
-        for(int p=0;p<str.length-1;p++)
+        for(int p=0;p<words.length-1;p++)
         {
-            String a=str[p];
+            String a=words[p];
             int len_a=a.length();
             int lps[] = new int[len_a];
             int i=0,j=1;
@@ -18,9 +18,9 @@ class Solution
                     lps[j]=++i;
                 }
             }
-            for(int q=p+1;q<str.length;q++)
+            for(int q=p+1;q<words.length;q++)
             {
-                String b=str[q];
+                String b=words[q];
                 int len_b=b.length();
                 for(i=0,j=0;(len_b-j)>=(len_a-i);)
                 {
