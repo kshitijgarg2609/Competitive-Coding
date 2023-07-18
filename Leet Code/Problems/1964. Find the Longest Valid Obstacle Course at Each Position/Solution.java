@@ -3,32 +3,24 @@ class Solution
     public int[] longestObstacleCourseAtEachPosition(int[] obstacles)
     {
         int obs[] = new int[obstacles.length];
-        int h[] = new int[obstacles.length];
+        List<Integer> list = new ArrayList<>();
         int j=0;
         for(int i=0;i<obstacles.length;i++)
         {
-            if(j==0 || obstacles[i]>=h[j-1])
+            if(j==0 || obstacles[i]>=list.get(j-1))
             {
-                h[j++]=obstacles[i];
+                list.add(obstacles[i]);
+                j++;
                 obs[i]=j;
                 continue;
             }
-            int left=0-1;
-            int right=j;
-            while((right-left)>1)
+            int indx=Collections.binarySearch(list,obstacles[i],(a,b)->(a.equals(b))?-1:Integer.compare(a,b));
+            if(indx<0)
             {
-                int mid=(left+right+1)/2;
-                if(obstacles[i]<h[mid])
-                {
-                    right=mid;
-                }
-                else
-                {
-                    left=mid;
-                }
+                indx=-(indx+1);
             }
-            h[right]=obstacles[i];
-            obs[i]=right+1;
+            list.set(indx,obstacles[i]);
+            obs[i]=indx+1;
         }
         return obs;
     }
