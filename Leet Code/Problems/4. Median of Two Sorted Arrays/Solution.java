@@ -2,45 +2,22 @@ class Solution
 {
     public double findMedianSortedArrays(int[] nums1, int[] nums2)
     {
-        int l1=nums1.length;
-        int l2=nums2.length;
-        int l=l1+l2;
-        int lm=l/2;
-        int prev=0;
-        int next=0;
-        int i=0,i1=0,i2=0;
-        while(i<=lm && i1<l1 && i2<l2)
+        Deque<Integer> list = new ArrayDeque<>();
+        for(int i=0,j=0,k=0;k<=(nums1.length+nums2.length)/2;k++)
         {
-            prev=next;
-            if(nums1[i1]<=nums2[i2])
+            if(i<nums1.length && j<nums2.length)
             {
-                next=nums1[i1++];
+                list.add(((nums1[i]<=nums2[j])?nums1[i++]:nums2[j++]));
             }
             else
             {
-                next=nums2[i2++];
+                list.add(((i<nums1.length)?nums1[i++]:nums2[j++]));
             }
-            i++;
+            if(list.size()>2)
+            {
+                list.removeFirst();
+            }
         }
-        while(i<=lm && i1<l1)
-        {
-            prev=next;
-            next=nums1[i1++];
-            i++;
-        }
-        while(i<=lm && i2<l2)
-        {
-            prev=next;
-            next=nums2[i2++];
-            i++;
-        }
-        if((l%2)==0)
-        {
-            return (prev+next)/2.0;
-        }
-        else
-        {
-            return next;
-        }
+        return ((nums1.length+nums2.length)%2==0)?((list.getFirst()+list.getLast())/2.0):(list.getLast()/1.0);
     }
 }
