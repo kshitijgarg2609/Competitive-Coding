@@ -8,7 +8,6 @@ class Solution
         int min2 = Arrays.stream(nums2).min().getAsInt();
         if((max1<0 && min2>0) || (min1>0 && max2<0))
         {
-            System.out.println("RETURN");
             return (max1<0 && min2>0)?(max1*min2):(min1*max2);
         }
         int dp[][] = new int[nums1.length+1][nums2.length+1];
