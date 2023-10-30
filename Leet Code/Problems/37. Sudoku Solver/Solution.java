@@ -2,7 +2,7 @@ class Solution
 {
     public void solveSudoku(char[][] board)
     {
-        List<List<Integer>> fill = new ArrayList<>();
+        List<int[]> blank = new ArrayList<>();
         boolean row[][] = new boolean[9][9];
         boolean col[][] = new boolean[9][9];
         boolean block[][] = new boolean[9][9];
@@ -12,57 +12,34 @@ class Solution
             {
                 if(board[i][j]=='.')
                 {
-                    fill.add(Arrays.asList(i,j));
+                    blank.add(new int[]{i,j});
                     continue;
                 }
-                row[i][board[i][j]-'0'-1]=true;
-                col[j][board[i][j]-'0'-1]=true;
-                block[(3*(i/3))+(j/3)][board[i][j]-'0'-1]=true;
+                row[i][board[i][j]-'0'-1]=col[j][board[i][j]-'0'-1]=block[3*(i/3)+(j/3)][board[i][j]-'0'-1]=true;
             }
         }
-        int i=0;
-        while(i<fill.size())
+        for(int k=0;k<blank.size();)
         {
-            List<Integer> crd = fill.get(i);
-            int block_indx = (3*(crd.get(0)/3))+(crd.get(1)/3);
-            char ch=board[crd.get(0)][crd.get(1)];
-            if(ch!='.')
+            int start=1,i=blank.get(k)[0],j=blank.get(k)[1];
+            if(board[i][j]!='.')
             {
-                row[crd.get(0)][ch-'0'-1]=false;
-                col[crd.get(1)][ch-'0'-1]=false;
-                block[block_indx][ch-'0'-1]=false;
+                start=board[i][j]-'0'+1;
+                row[i][board[i][j]-'0'-1]=col[j][board[i][j]-'0'-1]=block[3*(i/3)+(j/3)][board[i][j]-'0'-1]=false;
+                board[i][j]='.';
             }
-            if(ch=='9')
+            for(;start<=9;start++)
             {
-                board[crd.get(0)][crd.get(1)]='.';
-                i--;
-                continue;
-            }
-            else if(ch=='.')
-            {
-                ch='1';
-            }
-            else
-            {
-                ch=(char)(ch+1);
-            }
-            boolean flg=true;
-            for(char c=ch;flg && c<='9';c=(char)(c+1))
-            {
-                if(!row[crd.get(0)][c-'0'-1] && !col[crd.get(1)][c-'0'-1] && !block[block_indx][c-'0'-1])
+                if(!row[i][start-1] && !col[j][start-1] && !block[3*(i/3)+(j/3)][start-1])
                 {
-                    board[crd.get(0)][crd.get(1)]=c;
-                    row[crd.get(0)][c-'0'-1]=true;
-                    col[crd.get(1)][c-'0'-1]=true;
-                    block[block_indx][c-'0'-1]=true;
-                    i++;
-                    flg=false;
+                    row[i][start-1]=col[j][start-1]=block[3*(i/3)+(j/3)][start-1]=true;
+                    board[i][j]=(char)(start+'0');
+                    k++;
+                    break;
                 }
             }
-            if(flg)
+            if(board[i][j]=='.')
             {
-                board[crd.get(0)][crd.get(1)]='.';
-                i--;
+                k--;
             }
         }
     }
