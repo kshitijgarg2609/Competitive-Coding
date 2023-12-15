@@ -10,12 +10,6 @@ class Solution
             for(int j=0;j<n;j++)
             {
                 one_r[i]+=grid[i][j];
-            }
-        }
-        for(int j=0;j<n;j++)
-        {
-            for(int i=0;i<m;i++)
-            {
                 one_c[j]+=grid[i][j];
             }
         }
