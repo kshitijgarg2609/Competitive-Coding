@@ -5,22 +5,23 @@ class Solution
         List<Integer> list = Arrays.stream(nums).sorted().boxed().collect(Collectors.toList());
         for(int i=0;i<nums.length;i++)
         {
-            int left=-1;
-            int right=list.size()-1;
-            while((right-left)>1)
+            for(int left=0,right=list.size()-1,target=nums[i];left<=right;)
             {
-                int mid=(left+right+1)/2;
-                if(nums[i]<=list.get(mid))
+                int mid=(left+right)/2;
+                if(list.get(mid)==target)
                 {
-                    right=mid;
+                    nums[i]=mid;
+                }
+                if(list.get(mid)<target)
+                {
+                    left=mid+1;
                 }
                 else
                 {
-                    left=mid;
+                    right=mid-1;
                 }
             }
-            nums[i]=right;
-            list.remove(right);
+            list.remove(nums[i]);
         }
         return Arrays.stream(nums).boxed().collect(Collectors.toList());
     }
