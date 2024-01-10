@@ -17,9 +17,8 @@ class Solution
 {
     public int amountOfTime(TreeNode root, int start)
     {
-        Queue<TreeNode> qu = new LinkedList<>(){{add(root);}};
         Map<Integer,Set<Integer>> map = new HashMap<>();
-        while(!qu.isEmpty())
+        for(Queue<TreeNode> qu = new LinkedList<>(){{add(root);}};!qu.isEmpty();)
         {
             TreeNode node = qu.remove();
             for(TreeNode child : Stream.of(node.left,node.right).filter(n->n!=null).collect(Collectors.toList()))
@@ -33,7 +32,6 @@ class Solution
         for(Set<Integer> set = new HashSet<>(){{add(start);}};map.size()>0;max+=set.size()!=0?1:0)
         {
             set=set.stream().flatMap(n->map.remove(n).stream().filter(f->map.containsKey(f))).collect(Collectors.toSet());
-            
         }
         return max;
     }
