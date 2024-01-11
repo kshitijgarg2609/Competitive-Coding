@@ -13,7 +13,8 @@
  *     }
  * }
  */
-class Solution {
+class Solution
+{
     public int maxAncestorDiff(TreeNode root)
     {
         int max=0;
