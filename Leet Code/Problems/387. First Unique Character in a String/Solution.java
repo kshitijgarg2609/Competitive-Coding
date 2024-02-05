@@ -2,29 +2,15 @@ class Solution
 {
     public int firstUniqChar(String s)
     {
-        boolean repeat[] = new boolean[26];
-        Map<Integer,Integer> map = new HashMap<>();
+        int indx[] = new int[26];
+        int cnt[] = new int[26];
         for(int i=0;i<s.length();i++)
         {
-            int ch=s.charAt(i)-'a';
-            if(!repeat[ch])
+            if(cnt[s.charAt(i)-'a']++==0)
             {
-                if(map.containsKey(ch))
-                {
-                    map.remove(ch);
-                    repeat[ch]=true;
-                }
-                else
-                {
-                    map.put(ch,i);
-                }
+                indx[s.charAt(i)-'a']=i;
             }
         }
-        int ans=Integer.MAX_VALUE;
-        for(int x : map.values())
-        {
-            ans=Integer.min(ans,x);
-        }
-        return (ans==Integer.MAX_VALUE)?-1:ans;
+        return IntStream.range(0,26).filter(i->cnt[i]==1).map(i->indx[i]).min().orElse(-1);
     }
 }
