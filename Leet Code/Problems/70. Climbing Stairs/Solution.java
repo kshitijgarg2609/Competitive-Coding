@@ -2,22 +2,13 @@ class Solution
 {
     public int climbStairs(int n)
     {
-        if(n==0)
-        {
-            return 0;
-        }
-        int len=n+1;
-        int arr[] = new int[len];
+        int arr[] = new int[n+1];
         arr[0]=1;
-        for(int i=0;i<len;i++)
+        for(int i=0;i<n+1;i++)
         {
-            if(i+1<len)
+            for(int j=1;j<=2 && i+j<n+1;j++)
             {
-                arr[i+1]+=arr[i];
-            }
-            if(i+2<len)
-            {
-                arr[i+2]+=arr[i];
+                arr[i+j]+=arr[i];
             }
         }
         return arr[n];    
