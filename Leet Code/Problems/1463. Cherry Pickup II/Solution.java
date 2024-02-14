@@ -17,7 +17,7 @@ class Solution
                     for(int r2=-1;r2<=1;r2++)
                     {
                         int jmp[] = new int[]{pnt[0]+r1,pnt[1]+r2};
-                        if(!(jmp[0]>=0 && jmp[0]<n && jmp[1]>=0 && jmp[1]<n && jmp[0]!=jmp[1]))
+                        if(!(jmp[0]>=0 && jmp[0]<n && jmp[1]>=0 && jmp[1]<n && jmp[0]<jmp[1]))
                         {
                             continue;
                         }
