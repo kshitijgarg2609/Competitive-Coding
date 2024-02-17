@@ -4,11 +4,10 @@ class Solution
     {
         int b=0;
         PriorityQueue<Integer> pq = new PriorityQueue<>();
-        for(int i=1;i<heights.length;i++)
+        for(int i=1;i<heights.length;b=i++)
         {
             if(heights[i-1]>=heights[i])
             {
-                b=i;
                 continue;
             }
             pq.add(heights[i]-heights[i-1]);
@@ -23,7 +22,6 @@ class Solution
                     break;
                 }
             }
-            b=i;
         }
         return b;
     }
