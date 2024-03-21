@@ -16,14 +16,13 @@ class Solution
         {
             return head;
         }
-        ListNode ptr=head.next;
-        head.next=null;
-        while(ptr!=null)
+        ListNode ptr1,ptr2;
+        for(ptr1=head.next,head.next=null;ptr1!=null;)
         {
-            ListNode further_extract=ptr.next;
-            ptr.next=head;
-            head=ptr;
-            ptr=further_extract;
+            ptr2=ptr1.next;
+            ptr1.next=head;
+            head=ptr1;
+            ptr1=ptr2;
         }
         return head;
     }
