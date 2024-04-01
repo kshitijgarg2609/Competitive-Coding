@@ -2,11 +2,9 @@ class Solution
 {
     public int lengthOfLastWord(String s)
     {
-        int len=0;
-        for(String w : s.trim().split("\\s+"))
-        {
-            len=w.length();
-        }
+        int i=s.length()-1,len=0;
+        for(;i>=0 && s.charAt(i)==' ';i--);
+        for(;i>=0 && s.charAt(i)!=' ';i--,len++);
         return len;
     }
 }
