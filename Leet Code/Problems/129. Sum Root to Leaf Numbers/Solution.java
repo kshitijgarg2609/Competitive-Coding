@@ -24,21 +24,15 @@ class Solution
         {
             TreeNode pop_node = qu.remove();
             Integer pop_sum = qu_sum.remove();
-            System.out.println("pop_node="+pop_node.val+", "+pop_sum);
             if(pop_node.left==null && pop_node.right==null)
             {
                 sum+=pop_sum;
                 continue;
             }
-            if(pop_node.left!=null)
+            for(TreeNode pop_child : Arrays.asList(pop_node.left,pop_node.right).stream().filter(n->n!=null).toArray(TreeNode[]::new))
             {
-                qu.add(pop_node.left);
-                qu_sum.add((pop_sum*10)+pop_node.left.val);
-            }
-            if(pop_node.right!=null)
-            {
-                qu.add(pop_node.right);
-                qu_sum.add((pop_sum*10)+pop_node.right.val);
+                qu.add(pop_child);
+                qu_sum.add((pop_sum*10)+pop_child.val);
             }
         }
         return sum;
