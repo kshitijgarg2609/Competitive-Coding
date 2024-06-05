@@ -2,29 +2,28 @@ class Solution
 {
     public List<String> commonChars(String[] words)
     {
-        Map<Integer,Long> map = words[0].chars().boxed().collect(Collectors.groupingBy(Function.identity(),Collectors.counting()));
+        int cnt[] = new int[26];
+        for(char c : words[0].toCharArray())
+        {
+            cnt[c-'a']++;
+        }
         for(int i=1;i<words.length;i++)
         {
-            Map<Integer,Long> map_match = words[i].chars().boxed().collect(Collectors.groupingBy(Function.identity(),Collectors.counting()));
-            Iterator<Map.Entry<Integer,Long>> it = map.entrySet().iterator();
-            while(it.hasNext())
+            int nxt[] = new int[26];
+            for(char c : words[i].toCharArray())
             {
-                Map.Entry<Integer,Long> ent=it.next();
-                if(map_match.containsKey(ent.getKey()))
-                {
-                    ent.setValue(Long.min(ent.getValue(),map_match.get(ent.getKey())));
-                }
-                else
-                {
-                    it.remove();
-                }
+                nxt[c-'a']++;
+            }
+            for(int j=0;j<26;cnt[j]=Integer.min(cnt[j],nxt[j++]));
+        }
+        List<String> list = new LinkedList<>();
+        for(int i=0;i<26;i++)
+        {
+            for(int j=0;j<cnt[i];j++)
+            {
+                list.add(Character.toString((char)('a'+i)));
             }
         }
-        List<String> li = new ArrayList<>();
-        for(Map.Entry<Integer,Long> ob : map.entrySet())
-        {
-            li.addAll(Collections.nCopies(ob.getValue().intValue(),String.valueOf((char)ob.getKey().intValue())));
-        }
-        return li;
+        return list;
     }
 }
