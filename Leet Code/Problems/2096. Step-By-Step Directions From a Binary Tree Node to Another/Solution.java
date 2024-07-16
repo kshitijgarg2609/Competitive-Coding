@@ -19,11 +19,9 @@ class Solution
     {
         Map<Integer,List<int[]>> map = new HashMap<>();
         Queue<TreeNode> qu = new LinkedList<>(){{add(root);}};
-        int n=0;
         while(!qu.isEmpty())
         {
             TreeNode node = qu.remove();
-            n++;
             if(node.left!=null)
             {
                 qu.add(node.left);
