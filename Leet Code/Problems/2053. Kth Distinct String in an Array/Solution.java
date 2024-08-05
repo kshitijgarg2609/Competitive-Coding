@@ -10,13 +10,10 @@ class Solution
         }
         for(String str : arr)
         {
-            if(map.get(str)==1)
+            if(map.get(str)==1 && --k==0)
             {
-                if(--k==0)
-                {
-                    distinct=str;
-                    break;
-                }
+                distinct=str;
+                break;
             }
         }
         return distinct;
