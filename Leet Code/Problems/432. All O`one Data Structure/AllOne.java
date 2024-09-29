@@ -1,20 +1,27 @@
 class AllOne
 {
-    Map<String,Integer> map;
+    class Trie extends HashMap<Character,Trie>
+    {
+        int frequency=0;
+    }
+    Trie trie;
     NavigableMap<Integer,Set<String>> tree;
     public AllOne()
     {
-        map=new HashMap<>();
+        trie=new Trie();
         tree=new TreeMap<>();
     }
     
     public void inc(String key)
     {
-        int p=0,n=1;
-        if(map.containsKey(key))
+        Trie t = trie;
+        for(char c : key.toCharArray())
         {
-            p=map.get(key);
-            n=p+1;
+            t=t.computeIfAbsent(c,k->new Trie());
+        }
+        int p=t.frequency,n=++t.frequency;
+        if(p>0)
+        {
             Set<String> set = tree.get(p);
             set.remove(key);
             if(set.size()==0)
@@ -22,26 +29,25 @@ class AllOne
                 tree.remove(p);
             }
         }
-        map.put(key,n);
         tree.computeIfAbsent(n,k->new HashSet<>()).add(key);
     }
     
     public void dec(String key)
     {
-        int p=map.get(key),n=p-1;
+        Trie t = trie;
+        for(char c : key.toCharArray())
+        {
+            t=t.computeIfAbsent(c,k->new Trie());
+        }
+        int p=t.frequency,n=--t.frequency;
         Set<String> set = tree.get(p);
         set.remove(key);
         if(set.size()==0)
         {
             tree.remove(p);
         }
-        if(n==0)
+        if(n>0)
         {
-            map.remove(key);
-        }
-        else
-        {
-            map.put(key,n);
             tree.computeIfAbsent(n,k->new HashSet<>()).add(key);
         }
     }
