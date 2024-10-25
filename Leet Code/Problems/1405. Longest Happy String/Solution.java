@@ -29,14 +29,7 @@ class Solution
                 pop[1]--;
             }
             pq.add(pop);
-            for(Iterator<int[]> it=pq.iterator();it.hasNext();)
-            {
-                int arr[] = it.next();
-                if(arr[1]==0)
-                {
-                    it.remove();
-                }
-            }
+            pq.removeIf(ent->ent[1]==0);
         }
         return sb.toString();
     }
