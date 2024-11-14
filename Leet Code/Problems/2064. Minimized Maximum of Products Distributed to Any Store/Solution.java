@@ -2,7 +2,7 @@ class Solution
 {
     public int minimizedMaximum(int n, int[] quantities)
     {
-        int l=1,r=Arrays.stream(quantities).max().getAsInt(),save=r;
+        int l=1,r=Arrays.stream(quantities).max().getAsInt(),x=r;
         while(l<=r)
         {
             int mid=(l+r)/2;
@@ -18,9 +18,9 @@ class Solution
             else
             {
                 r=mid-1;
-                save=mid;
+                x=mid;
             }
         }
-        return save;
+        return x;
     }
 }
