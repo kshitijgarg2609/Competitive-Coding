@@ -17,28 +17,27 @@ class Solution
 {
     public List<Integer> largestValues(TreeNode root)
     {
-        List<Integer> list = new ArrayList<>();
-        Queue<TreeNode> bfs = new LinkedList<>(){{add(root);}};
-        Queue<Integer> bfs_h = new LinkedList<>(){{add(0);}};
-        while(!bfs.isEmpty())
+        if(root==null)
         {
-            TreeNode node = bfs.remove();
-            int height = bfs_h.remove();
-            if(node!=null)
+            return new LinkedList<>();
+        }
+        List<Integer> list = new LinkedList<>();
+        Queue<TreeNode> qu = new LinkedList<>(){{add(root);}};
+        while(!qu.isEmpty())
+        {
+            int max=Integer.MIN_VALUE;
+            for(int i=0,size=qu.size();i<size;i++)
             {
-                if(list.size()==height)
+                max=Integer.max(max,qu.peek().val);
+                for(TreeNode node : new TreeNode[]{qu.peek().left,qu.remove().right})
                 {
-                    list.add(node.val);
+                    if(node!=null)
+                    {
+                        qu.add(node);
+                    }
                 }
-                else
-                {
-                    list.set(height,Integer.max(list.get(height),node.val));
-                }
-                bfs.add(node.left);
-                bfs_h.add(height+1);
-                bfs.add(node.right);
-                bfs_h.add(height+1);
             }
+            list.add(max);
         }
         return list;
     }
