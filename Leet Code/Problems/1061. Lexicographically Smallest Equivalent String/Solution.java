@@ -18,15 +18,15 @@ class Solution
             Set<Character> set = new TreeSet<>();
             Queue<Integer> bfs = new LinkedList<>();
             bfs.add(i);
-            while(!bfs.isEmpty())
+            set.add((char)('a'+i));
+            for(;!bfs.isEmpty();bfs.remove())
             {
-                int pop = bfs.remove();
-                if(set.contains((char)('a'+pop)))
+                IntStream.range(0,26).filter(b->adj[bfs.peek()][b] && !set.contains((char)('a'+b))).forEach(b->
                 {
-                    continue;
-                }
-                set.add((char)('a'+pop));
-                bfs.addAll(IntStream.range(0,26).filter(b->adj[pop][b]).boxed().toList());
+                    bfs.add(b);
+                    set.add((char)('a' + b));
+                });
+
             }
             set.stream().filter(c->!map.containsKey(c)).forEach(c->map.put(c,set.iterator().next()));
         }
