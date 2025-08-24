@@ -2,17 +2,13 @@ class Solution
 {
     public int longestSubarray(int[] nums)
     {
-        int start=0;
-        int zero=0;
         int max=0;
-        for(int i=0;i<nums.length;i++)
+        List<Integer> list = new LinkedList<>(Arrays.asList(-1,-1,-1));
+        while(list.get(2)<nums.length)
         {
-            zero+=((nums[i]==0)?1:0);
-            while(zero>1)
-            {
-                zero-=((nums[start++]==0)?1:0);
-            }
-            max=Integer.max(max,i-start);
+            list.add(IntStream.range(list.get(2)+1,nums.length).filter(i->nums[i]==0).findFirst().orElse(nums.length));
+            list.remove(0);
+            max=Integer.max(max,list.get(2)-list.get(0)-2);
         }
         return max;
     }
