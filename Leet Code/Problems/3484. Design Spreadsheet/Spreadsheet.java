@@ -18,7 +18,7 @@ class Spreadsheet
     
     public int getValue(String formula)
     {
-        return Arrays.stream(formula.substring(1).split("\\+")).mapToInt(str->Character.isDigit(str.charAt(0))?Integer.parseInt(str):map.getOrDefault(str,0)).sum();
+        return Arrays.stream(formula.substring(1).split("\\+")).mapToInt(str->str.matches("\\d+")?Integer.parseInt(str):map.getOrDefault(str,0)).sum();
     }
 }
 
