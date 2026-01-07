@@ -30,7 +30,6 @@ class Solution
         }
         long left[] = dfsSumMax(root.left);
         long right[] = dfsSumMax(root.right);
-        long arr[] = new long[]{root.val+left[0]+right[0],LongStream.of(left[1], right[1], left[0]*(total-left[0]), right[0]*(total-right[0])).max().getAsLong()};
-        return arr;
+        return new long[]{root.val+left[0]+right[0],LongStream.of(left[1], right[1], left[0]*(total-left[0]), right[0]*(total-right[0])).max().getAsLong()};
     }
 }
