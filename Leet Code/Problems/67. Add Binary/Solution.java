@@ -2,32 +2,14 @@ class Solution
 {
     public String addBinary(String a, String b)
     {
-        StringBuffer bin = new StringBuffer();
-        int len_a=a.length();
-        int i=len_a-1;
-        int len_b=b.length();
-        int j=len_b-1;
+        StringBuilder sb = new StringBuilder();
         int carry=0;
-        while(i>=0 || j>=0)
+        for(int i=a.length()-1,j=b.length()-1;i>=0 || j>=0;i--,j--)
         {
-            int char_a=0;
-            int char_b=0;
-            if(i>=0)
-            {
-                char_a=(a.charAt(i--)-'0');
-            }
-            if(j>=0)
-            {
-                char_b=(b.charAt(j--)-'0');
-            }
-            int sum=char_a+char_b+carry;
-            bin.insert(0,(char)((sum%2)+'0'));
+            int sum=carry+(i>=0?(a.charAt(i)-'0'):0)+(j>=0?(b.charAt(j)-'0'):0);
+            sb.append((char)('0'+(sum%2)));
             carry=sum/2;
         }
-        if(carry!=0)
-        {
-            bin.insert(0,(char)(carry+'0'));
-        }
-        return bin.toString();
+        return ((carry==1)?"1":"")+sb.reverse().toString();
     }
 }
