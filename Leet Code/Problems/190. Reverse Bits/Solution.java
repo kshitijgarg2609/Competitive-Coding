@@ -1,17 +1,9 @@
-public class Solution
+class Solution
 {
-    // you need treat n as an unsigned value
     public int reverseBits(int n)
     {
-        char bits[] = new char[32];
-        Arrays.fill(bits,'0');
-        int i=0;
-        long val=Integer.toUnsignedLong(n);
-        while(val>0)
-        {
-            bits[i++]=(char)((val%2)+'0');
-            val/=2;
-        }
-        return Long.valueOf((new String(bits)),2).intValue();
+        int rev=0;
+        for(int i=0,b=1;i<32;rev|=(((n&(1<<i))>>i)<<(32-i++-1)));
+        return rev;
     }
 }
