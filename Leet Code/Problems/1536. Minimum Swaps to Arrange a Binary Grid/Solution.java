@@ -7,11 +7,7 @@ class Solution
         for(int i=0,j=0;i<indx.length;i++)
         {
             for(j=i;j<indx.length && i<indx[j];j++);
-            if(j==i)
-            {
-                continue;
-            }
-            else if(j==indx.length)
+            if(j==indx.length)
             {
                 return -1;
             }
