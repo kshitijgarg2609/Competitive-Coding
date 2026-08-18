@@ -28,7 +28,6 @@ class Solution
         for(Map.Entry<Integer,Integer> en : map.entrySet())
         {
             int indx[] = new int[]{Integer.max(0,en.getValue()-(k-1)),Integer.min(nums.length-1,en.getValue()+(k-1))};
-            System.out.println(en+" : "+Arrays.toString(indx));
             if(indx[1]-indx[0]+1==k)
             {
                 ans=Integer.max(ans,en.getKey());
